@@ -1,25 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+import {useSelector,useDispatch} from 'react-redux'
+const App = () => {
+  const number = useSelector((state)=>state.number)
+  const disPatch = useDispatch()
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+  const add =()=>{
+    disPatch({type:'add'})
+  }
+  const asyncAdd=()=>{
+    disPatch({type:'INCREMENT_ASYNC'})
+  }
+  return ( 
+    <div>
+      {number}
+      <button onClick={add}>add</button>
+      <button onClick={asyncAdd}>asy add</button>
     </div>
-  );
+   );
 }
-
+ 
 export default App;
