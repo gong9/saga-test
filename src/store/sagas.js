@@ -1,5 +1,5 @@
 
-import { call, put, takeEvery, all  } from 'redux-saga/effects'
+import { call, take, select, put, takeEvery, all } from 'redux-saga/effects'
 
 const delay=()=>{
   return new Promise((res,rej)=>{
@@ -19,10 +19,35 @@ export function* watchIncrementAsync() {
   yield takeEvery('INCREMENT_ASYNC', incrementAsync)
 }
 
+// watch saga log  
+function* watchAndLog() {
+  yield takeEvery('*', function* logger(action) {
+    const state = yield select((state)=>state.number)
+
+    console.log('action', action)
+    console.log('state after', state)
+  })
+}
+
+
+// use task log
+function* watchAndLog2() {
+  while (true) {
+    const action = yield take('*')
+    const state = yield select((state)=>state.number)
+
+
+    console.log('action', action)
+    console.log('state after', state)
+  }
+}
+
 // notice how we now only export the rootSaga
 // single entry point to start all Sagas at once
 export  function* rootSaga() {
   yield all([
-    watchIncrementAsync()
+    watchIncrementAsync(),
+    watchAndLog(),
+    watchAndLog2()
   ])
 }
