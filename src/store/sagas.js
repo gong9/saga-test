@@ -14,9 +14,9 @@ export function* incrementAsync() {
 }
 
 
-// Our watcher Saga: 在每个 INCREMENT_ASYNC action spawn 一个新的 incrementAsync 任务
+// Our watcher Saga: 在每个 async_add action spawn 一个新的 incrementAsync 任务
 export function* watchIncrementAsync() {
-  yield takeEvery('INCREMENT_ASYNC', incrementAsync)
+  yield takeEvery('async_add', incrementAsync)
 }
 
 // watch saga log  
@@ -32,6 +32,7 @@ function* watchAndLog() {
 
 // use task log
 function* watchAndLog2() {
+  console.log(11);
   while (true) {
     const action = yield take('*')
     const state = yield select((state)=>state.number)
@@ -47,7 +48,7 @@ function* watchAndLog2() {
 export  function* rootSaga() {
   yield all([
     watchIncrementAsync(),
-    watchAndLog(),
-    watchAndLog2()
+    // watchAndLog(),
+    // watchAndLog2()
   ])
 }

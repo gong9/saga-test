@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux'
 
 const App = () => {
-  const number = useSelector( (state)=>state.number )
+  const state = useSelector( (state)=>{return {number:state.number,data:state.data}} )
   const disPatch = useDispatch()
 
   const add =()=>{
@@ -9,12 +9,13 @@ const App = () => {
   }
 
   const asyncAdd=()=>{
-    disPatch({type:'INCREMENT_ASYNC'})
+    disPatch({type:'async_add'})
   }
-  
+
   return ( 
     <div>
-      { number }
+      { state.number }
+      { state.data }
       <button onClick={ add }>add</button>
       <button onClick={ asyncAdd }>asy add</button>
     </div>

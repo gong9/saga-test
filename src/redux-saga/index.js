@@ -8,7 +8,7 @@ const createSagaMiddleware=()=>{
 
   /**sagaMiddleware */
   const sagaMiddleware=({getState,dispatch})=>{
-    /**目的是想在runSaga中拿到getState、dispatch */
+    /**目的是想在runSaga中拿到getState、dispatch等*/
     boundRunSaga = runSaga.bind(null,{getState,dispatch,channel})
     return (next)=>{
         return (action)=>{

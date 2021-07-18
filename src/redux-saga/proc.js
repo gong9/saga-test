@@ -20,11 +20,19 @@ const proc = (env, it) => {
           channel.take(next)
           break;
         case 'put':
-          console.log(effect);
           dispatch(effect.actionType);
           next()
           break;
         default:
+          if(typeof effect.then==='function'){
+            effect.then(res=>{
+              if(res){
+                next(res)
+              }else{
+                next()
+              }
+            })
+          }
           break;
       }
     }else{
